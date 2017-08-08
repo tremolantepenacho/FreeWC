@@ -1,4 +1,4 @@
-package aparicio.arnau.hector.freewc.Modelo;
+package aparicio.arnau.hector.freewc.modelo;
 
 /**
  * Created by hector on 6/08/17.

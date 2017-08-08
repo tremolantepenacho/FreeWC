@@ -1,4 +1,4 @@
-package aparicio.arnau.hector.freewc.Modelo;
+package aparicio.arnau.hector.freewc.modelo;
 
 import java.util.Date;
 
