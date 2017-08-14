@@ -10,7 +10,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    String SQLcreaBD = "CREATE TABLE tblClientes (codigo INTEGER, nombre TEXT, tf TEXT)";
+    private String SQLcreaUsuario = "CREATE TABLE tblUsuario (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
+            " nombre TEXT NOT NULL  UNIQUE ," +
+            " password TEXT NOT NULL ," +
+            " admin INTEGER NOT NULL DEFAULT 0)";
+
+    private String SQLcreaWater="CREATE TABLE tblWater (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
+            "nombre TEXT NOT NULL ," +
+            "latitud DOUBLE NOT NULL ," +
+            "longitud DOUBLE NOT NULL ," +
+            "comentario TEXT" +
+            "creador INTEGER," +
+            "fecha DATETIME,"+
+            "FOREIGN KEY(creador) REFERENCES tblUsuario(_id)" +
+            ");)";
+
+    private String SQLcreaComentario="CREATE TABLE tblComentario (usuario INTEGER NOT NULL ," +
+            "water INTEGER NOT NULL , " +
+            "comentario TEXT," +
+            "fecha DATETIME NOT NULL ," +
+            "puntuacion INTEGER CHECK (puntuacion>=0 AND puntuacion<=5)," +
+            "PRIMARY KEY (usuario,water)" +
+            "FOREIGN KEY (usuario) REFERENCES tblUSUARIO(_id)" +
+            "FOREIGN KEY (water) REFERENCES tblWATER(_id)" +
+            ")";
+
     private static FreeWCSQLiteOpenHelper db;
 
     private FreeWCSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -22,15 +46,21 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase bd) {
 
-        bd.execSQL(SQLcreaBD);
+        bd.execSQL(SQLcreaUsuario);
+        bd.execSQL(SQLcreaWater);
+        bd.execSQL(SQLcreaComentario);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase bd, int arg1, int arg2) {
 
-        bd.execSQL("DROP TABLE IF EXIST tblClientes");
-        bd.execSQL(SQLcreaBD);
+        bd.execSQL("DROP TABLE IF EXIST tblUsuario");
+        bd.execSQL("DROP TABLE IF EXIST tblWater");
+        bd.execSQL("DROP TABLE IF EXIST tblComentario");
+        bd.execSQL(SQLcreaUsuario);
+        bd.execSQL(SQLcreaWater);
+        bd.execSQL(SQLcreaComentario);
 
     }
 
