@@ -19,7 +19,7 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
             "nombre TEXT NOT NULL ," +
             "latitud DOUBLE NOT NULL ," +
             "longitud DOUBLE NOT NULL ," +
-            "comentario TEXT" +
+            "comentario TEXT," +
             "creador INTEGER," +
             "fecha DATETIME,"+
             "FOREIGN KEY(creador) REFERENCES tblUsuario(_id)" +
@@ -35,9 +35,9 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (water) REFERENCES tblWATER(_id)" +
             ")";
 
-    private static FreeWCSQLiteOpenHelper db;
+   // private static FreeWCSQLiteOpenHelper db;
 
-    private FreeWCSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public FreeWCSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 
         super(context, name, factory, version);
 
@@ -49,6 +49,7 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
         bd.execSQL(SQLcreaUsuario);
         bd.execSQL(SQLcreaWater);
         bd.execSQL(SQLcreaComentario);
+        bd.execSQL("INSERT INTO tblUsuario ('nombre', 'password', 'admin') VALUES ('pepe','caca',1)");
 
     }
 
@@ -63,7 +64,7 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
         bd.execSQL(SQLcreaComentario);
 
     }
-
+/*
     public static FreeWCSQLiteOpenHelper creaDB (Context context, String name, SQLiteDatabase.CursorFactory factory, int versie) {
         if (db == null){
             db = new FreeWCSQLiteOpenHelper(context,name,factory,versie);
@@ -75,4 +76,5 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
     public FreeWCSQLiteOpenHelper clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
+*/
 }

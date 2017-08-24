@@ -11,7 +11,7 @@ public interface GenericDAO<T,ID extends Serializable> {
      T create() throws BusinessException;
      void saveOrUpdate(T entity) throws BusinessException;
     void save(T entity) throws BusinessException;
-    void pdate(T entity) throws BusinessException;
+    void update(T entity) throws BusinessException;
      T get(ID id) throws BusinessException;
      void delete(ID id) throws BusinessException;
      List<T> findAll() throws BusinessException;

@@ -6,12 +6,18 @@ package aparicio.arnau.hector.freewc.modelo;
 
 public class Usuario {
     private String nombre,password;
-    private TipoUsuario tipo;
+    private boolean administrador;
 
     public Usuario(String nombre, String password) {
         this.nombre = nombre;
         this.password = password;
-        tipo= TipoUsuario.Normal;
+        administrador= false;
+    }
+
+    public Usuario(String nombre, String password,boolean administrador) {
+        this.nombre = nombre;
+        this.password = password;
+        this.administrador=administrador;
     }
 
     public String getNombre() {
@@ -30,19 +36,19 @@ public class Usuario {
         this.password = password;
     }
 
-    public TipoUsuario getTipo() {
-        return tipo;
+    public boolean getAdministrador() {
+        return administrador;
     }
 
-    public void setTipo(TipoUsuario tipo) {
-        this.tipo = tipo;
+    public void setAdministrador(boolean tipo) {
+        this.administrador = tipo;
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "nombre='" + nombre + '\'' +
-                ", tipo=" + tipo +
+                ", administradir=" + administrador +
                 '}';
     }
 }
