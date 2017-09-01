@@ -11,7 +11,6 @@ import aparicio.arnau.hector.freewc.dao.ImplementacionDAOSQLite.UsuarioDAOSQLite
 import aparicio.arnau.hector.freewc.dao.ImplementacionDAOSQLite.WaterDAOSQLite;
 import aparicio.arnau.hector.freewc.dao.UsuarioDAO;
 import aparicio.arnau.hector.freewc.dao.WaterDAO;
-import aparicio.arnau.hector.freewc.modelo.TipoUsuario;
 import aparicio.arnau.hector.freewc.modelo.Usuario;
 
 /**
@@ -29,7 +28,7 @@ public class Controlador {
 
     private Controlador(Activity actividad){
 
-        freeWCSQL=new FreeWCSQLiteOpenHelper(actividad,"dbFreeWC2",null,1);
+        freeWCSQL=new FreeWCSQLiteOpenHelper(actividad);
         waterDAO=new WaterDAOSQLite();
         usuarioDAO=new UsuarioDAOSQLite();
         comentarioDAO=new ComentarioDAOSQLite();
@@ -61,13 +60,22 @@ public class Controlador {
         return freeWCSQL.getWritableDatabase();
     }
 
-    public Usuario getUsuario(int id){
+    public Usuario obtenUsuario(int id){
         try {
-            usuarioDAO.get(id);
+            return usuarioDAO.get(id);
+
         } catch (BusinessException e) {
             e.printStackTrace();
         }
         return null;
+    }
+    public void insertaUsuario(Usuario nuevo){
+        try {
+            usuarioDAO.save(nuevo);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

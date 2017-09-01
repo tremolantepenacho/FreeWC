@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
 
+    public static final String DB_NAME = "demo.db";
+
     private String SQLcreaUsuario = "CREATE TABLE tblUsuario (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
             " nombre TEXT NOT NULL  UNIQUE ," +
             " password TEXT NOT NULL ," +
@@ -37,9 +39,9 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
 
    // private static FreeWCSQLiteOpenHelper db;
 
-    public FreeWCSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public FreeWCSQLiteOpenHelper(Context context) {
 
-        super(context, name, factory, version);
+        super(context, DB_NAME, null, 1);
 
     }
 
@@ -64,17 +66,4 @@ public class FreeWCSQLiteOpenHelper extends SQLiteOpenHelper {
         bd.execSQL(SQLcreaComentario);
 
     }
-/*
-    public static FreeWCSQLiteOpenHelper creaDB (Context context, String name, SQLiteDatabase.CursorFactory factory, int versie) {
-        if (db == null){
-            db = new FreeWCSQLiteOpenHelper(context,name,factory,versie);
-        }
-        return db;
-
-    }
-
-    public FreeWCSQLiteOpenHelper clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
-    }
-*/
 }

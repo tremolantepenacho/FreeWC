@@ -1,5 +1,6 @@
 package aparicio.arnau.hector.freewc.dao.ImplementacionDAOSQLite;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -8,7 +9,6 @@ import java.util.List;
 import aparicio.arnau.hector.freewc.controlador.Controlador;
 import aparicio.arnau.hector.freewc.dao.BusinessException;
 import aparicio.arnau.hector.freewc.dao.UsuarioDAO;
-import aparicio.arnau.hector.freewc.modelo.TipoUsuario;
 import aparicio.arnau.hector.freewc.modelo.Usuario;
 
 /**
@@ -40,6 +40,18 @@ public class UsuarioDAOSQLite implements UsuarioDAO {
     @Override
     public void save(Usuario entity) throws BusinessException {
 
+
+        ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("nombre",entity.getNombre());
+        nuevoRegistro.put("password", entity.getPassword());
+        if (entity.isAdministrador()){
+            nuevoRegistro.put("admin",1);
+        }
+        else {
+            nuevoRegistro.put("admin",0);
+        }
+        escritura.insert("tblUsuario", null, nuevoRegistro);
+
     }
 
     @Override
@@ -53,6 +65,7 @@ public class UsuarioDAOSQLite implements UsuarioDAO {
         String[] campos = new String[] {"nombre,password,admin"};
         String[] args = new String[] {id.toString()};
         Cursor c = lectura.query("tblUsuario", campos, "_id=?", args, null, null, null);
+
         if(c.getCount()==0){
             return null;
         }

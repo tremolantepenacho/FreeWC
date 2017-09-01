@@ -36,12 +36,15 @@ public class Usuario {
         this.password = password;
     }
 
-    public boolean getAdministrador() {
+    public boolean isAdministrador() {
         return administrador;
     }
 
-    public void setAdministrador(boolean tipo) {
-        this.administrador = tipo;
+    public void hazAdministrador() {
+        this.administrador = true;
+    }
+    public void hazNoAdministrador() {
+        this.administrador = false;
     }
 
     @Override
